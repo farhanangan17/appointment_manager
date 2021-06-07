@@ -17,8 +17,10 @@ class DoctorDetailItem extends StatefulWidget {
 class _DoctorDetailItemState extends State<DoctorDetailItem> {
   selectButton _sb = selectButton.info;
 
+
   Container detailContainer(String title, List<String> lstStr){
     return Container(
+      // height: MediaQuery.of(context).size.height*0.12,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -101,8 +103,9 @@ class _DoctorDetailItemState extends State<DoctorDetailItem> {
     final List<String> listStringSer = _doctorProfile.services;
 
     return Container(
+      // he: deviceSize.height*0.2,
       margin: EdgeInsets.symmetric(vertical: 0, horizontal: 15),
-      height: deviceSize.height *.55,
+      height: deviceSize.height *.52,
       child: Column(
         children: <Widget>[
           Row(
@@ -171,9 +174,9 @@ class _DoctorDetailItemState extends State<DoctorDetailItem> {
             ],
           ),
           Container(
-            padding: EdgeInsets.symmetric(vertical: 20, horizontal: 30),
-            margin: EdgeInsets.only(bottom: 10),
-            height: deviceSize.height*0.4,
+            padding: EdgeInsets.symmetric(vertical: 0, horizontal: 30),
+            margin: EdgeInsets.only(top: 10, bottom: 10),
+            height: deviceSize.height*0.37,
               decoration: BoxDecoration(
                   color: Colors.white
               ),

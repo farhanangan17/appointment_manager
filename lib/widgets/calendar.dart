@@ -1,10 +1,14 @@
 // import 'package:calendar/event.dart';
+import 'package:appointment_manager/screens/homepage_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:intl/intl.dart';
 
+import '../models/appointment.dart';
+
 class Calendar extends StatefulWidget {
+
   @override
   _CalendarState createState() => _CalendarState();
 }
@@ -35,67 +39,79 @@ class _CalendarState extends State<Calendar> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-        children: [
-          TableCalendar(
-            focusedDay: selectedDay,
-            firstDay: DateTime(1990),
-            lastDay: DateTime(2050),
-            calendarFormat: format,
-            onFormatChanged: (CalendarFormat _format) {
-              setState(() {
-                format = _format;
-              });
-            },
-            // startingDayOfWeek: StartingDayOfWeek.sunday,
-            // daysOfWeekVisible: true,
+    final deviceSize = MediaQuery.of(context).size;
 
-            //Day Changed
-            onDaySelected: (DateTime selectDay, DateTime focusDay) {
-              setState(() {
-                selectedDay = selectDay;
+    return
+      // Column(
+      //   children: [
+          // Container(
+            // height: deviceSize.height * 0.4,
+            TableCalendar(
+
+              rowHeight: deviceSize.height*0.05,
+              focusedDay: selectedDay,
+              firstDay: DateTime(1990),
+              lastDay: DateTime(2050),
+              calendarFormat: format,
+              // onFormatChanged: (CalendarFormat _format) {
+              //   setState(() {
+              //     format = _format;
+              //   });
+              // },
+              // startingDayOfWeek: StartingDayOfWeek.sunday,
+              // daysOfWeekVisible: true,
+
+              //Day Changed
+              onDaySelected: (DateTime selectDay, DateTime focusDay) {
+
+                setState(() {
+                  selectedDay = selectDay;
+                  focusedDay = focusDay;
+                });
+                //print(tempApp);
+              },
+              onPageChanged: (focusDay) {
                 focusedDay = focusDay;
-              });
-              print(focusedDay);
-            },
-            selectedDayPredicate: (DateTime date) {
-              return isSameDay(selectedDay, date);
-            },
+              },
+              selectedDayPredicate: (DateTime date) {
+                return isSameDay(selectedDay, date);
+              },
 
-            // eventLoader: _getEventsfromDay,
+              // eventLoader: _getEventsfromDay,
 
-            //To style the Calendar
-            calendarStyle: CalendarStyle(
-              outsideDaysVisible: false,
-              isTodayHighlighted: true,
-              selectedDecoration: BoxDecoration(
-                color: Theme.of(context).primaryColorLight,
-                shape: BoxShape.circle,
+              //To style the Calendar
+              calendarStyle: CalendarStyle(
+                outsideDaysVisible: false,
+                isTodayHighlighted: true,
+                selectedDecoration: BoxDecoration(
+                  color: Theme.of(context).primaryColorLight,
+                  shape: BoxShape.circle,
+                ),
+                todayDecoration: BoxDecoration(
+                  color: Colors.grey,
+                  shape: BoxShape.circle,
+                ),
+                defaultTextStyle: TextStyle(
+                  color: Colors.white,
+                ),
+                weekendTextStyle: TextStyle(
+                  color: Colors.white,
+                ),
               ),
-              todayDecoration: BoxDecoration(
-                color: Colors.grey,
-                shape: BoxShape.circle,
+              headerStyle: HeaderStyle(
+                leftChevronIcon: Icon(Icons.chevron_left, color: Colors.white),
+                rightChevronIcon: Icon(Icons.chevron_right, color: Colors.white),
+                leftChevronPadding: EdgeInsets.only(left: 80),
+                rightChevronPadding: EdgeInsets.only(right: 80),
+                titleTextFormatter: (date, locale) => DateFormat.MMMM(locale).format(date),
+                titleTextStyle: TextStyle(color: Colors.white),
+                formatButtonVisible: false,
+                titleCentered: true,
+                formatButtonShowsNext: false,
+                headerPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 20),
               ),
-              defaultTextStyle: TextStyle(
-                color: Colors.white,
-              ),
-              weekendTextStyle: TextStyle(
-                color: Colors.white,
-              ),
-            ),
-            headerStyle: HeaderStyle(
-              leftChevronIcon: Icon(Icons.chevron_left, color: Colors.white),
-              rightChevronIcon: Icon(Icons.chevron_right, color: Colors.white),
-              titleTextFormatter: (date, locale) => DateFormat.MMMM(locale).format(date),
-              titleTextStyle: TextStyle(color: Colors.white),
-              formatButtonVisible: false,
-              titleCentered: true,
-              formatButtonShowsNext: false,
-              headerPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 20),
-              leftChevronPadding: EdgeInsets.only(left: 80),
-              rightChevronPadding: EdgeInsets.only(right: 80),
-            ),
-          ),
+            );
+          // ),
           // ..._getEventsfromDay(selectedDay).map(
           //       (Event event) => ListTile(
           //     title: Text(
@@ -103,8 +119,8 @@ class _CalendarState extends State<Calendar> {
           //     ),
           //   ),
           // ),
-        ],
-      );
+      //   ],
+      // );
       // floatingActionButton: FloatingActionButton.extended(
       //   onPressed: () => showDialog(
       //     context: context,

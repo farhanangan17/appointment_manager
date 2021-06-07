@@ -10,6 +10,7 @@ import 'screens/appointment_schedule_screen.dart';
 import 'screens/appointment_information_screen.dart';
 import 'screens/appointment_payment_screen.dart';
 import 'screens/od_services_screen.dart';
+import 'screens/auth_screen.dart';
 import 'models/doctor_category.dart';
 import 'models/doctor_credential.dart';
 import 'providers/doctor_categories.dart';
@@ -93,8 +94,8 @@ class MyApp extends StatelessWidget {
             ),
           )
         ),
-        home: HomepageScreen(),
-        // home: AppointmentInformationScreen(),
+        // home: HomepageScreen(),
+        home: AuthScreen(),
         routes: {
           FindDoctorScreen.routeName: (ctx) => FindDoctorScreen(),
           MedicalRecordsScreen.routeName: (ctx) => MedicalRecordsScreen(),

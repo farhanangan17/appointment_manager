@@ -12,37 +12,31 @@ class AppointmentPaymentScreen extends StatefulWidget {
 class _AppointmentPaymentScreenState extends State<AppointmentPaymentScreen> {
   var _saved = false;
 
-  Widget textFieldContainer(BuildContext ctx, String title, double wide){
+  Widget textFieldContainer(BuildContext ctx, double wide){
     return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Padding(
-            padding: EdgeInsets.only(top: 20, bottom: 10),
-            child: Text(
-              title,
-              style: TextStyle(
-                  fontSize: 18,
-                  color: Theme.of(ctx).primaryColorLight
-              ),
-            ),
-          ),
-          Container(
-            height: 45,
-            width: wide,
-            child: TextFormField(
-              // style: TextFormS,
-                decoration: InputDecoration(
-                  contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-                  // focusColor: Theme.of(context).primaryColorLight,
-                  border: OutlineInputBorder(
-                      borderSide: BorderSide(
-                          color: Theme.of(ctx).primaryColorLight
+          // Row(
+          //   children: <Widget>[
+              Container(
+                height: 45,
+                width: wide,
+                child: TextFormField(
+                  // style: TextFormS,
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                      // focusColor: Theme.of(context).primaryColorLight,
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Theme.of(ctx).primaryColorLight
+                          ),
+                          borderRadius: BorderRadius.all(Radius.circular(30.0))
                       ),
-                      borderRadius: BorderRadius.all(Radius.circular(30.0))
-                  ),
-                )
-            ),
-          ),
+                    )
+                ),
+              ),
+            // ]
+          // ),
         ]
     );
   }
@@ -79,7 +73,7 @@ class _AppointmentPaymentScreenState extends State<AppointmentPaymentScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).appBarTheme.color,
-        title: Text('Appointment information', style: Theme.of(context).textTheme.headline2,),
+        title: Text('Appointment Payment', style: Theme.of(context).textTheme.headline2,),
       ),
       body: Container(
         height: deviceSize.height *0.9,
@@ -92,21 +86,21 @@ class _AppointmentPaymentScreenState extends State<AppointmentPaymentScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Container(
-                    margin: EdgeInsets.symmetric(horizontal: 0, vertical: 20),
-                    height: 30,
+                    margin: EdgeInsets.symmetric(horizontal: 0, vertical: deviceSize.height*0.02),
+                    height: deviceSize.height*0.03,
                     child: Text('--------Progress Bar-------'),
                   ),
                   Text(
                     'BDT $_visitAmount',
                     style: TextStyle(
-                        fontSize: 25,
+                        fontSize: deviceSize.height*0.035,
                         color: Theme.of(context).primaryColor,
                         fontWeight: FontWeight.bold
                     ),
                   )
                 ],
               ),
-              SizedBox(height: deviceSize.height*0.1,),
+              SizedBox(height: deviceSize.height*0.03,),
               Container(
                 // alignment: Alignment.topLeft,
                 child: Form(
@@ -116,30 +110,123 @@ class _AppointmentPaymentScreenState extends State<AppointmentPaymentScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
+                        Padding(
+                          padding: EdgeInsets.only(top: 20, bottom: 10),
+                          child: Text(
+                            "CARD NUMBER",
+                            style: TextStyle(
+                                fontSize: 18,
+                                color: Theme.of(context).primaryColorLight
+                            ),
+                          ),
+                        ),
                         Row(
                           children: <Widget>[
-                            textFieldContainer(context, 'CARD NUMBER', deviceSize.width*0.5),
-                            // Container(
-                            //   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 50),
-                            //   width: deviceSize.width *0.2,
-                            //   height: 45,
-                            //   // deviceSize.height*0.1,
-                            //   decoration: BoxDecoration(
-                            //     borderRadius: BorderRadius.zero,
-                            //     color: Colors.black12
-                            //   ),
-                            // )
+                            textFieldContainer(context, deviceSize.width*0.62),
+                            Container(
+                              margin: EdgeInsets.only(left: deviceSize.width*0.03),
+                              height: MediaQuery.of(context).size.height*0.06,
+                              width: MediaQuery.of(context).size.width*0.17,
+                              decoration: BoxDecoration(
+                                // color: Colors.black12,
+                                borderRadius: BorderRadius.circular(0),
+                                border: Border.all(
+                                  color: Colors.grey,
+                                  style: BorderStyle.solid,
+                                )
+                              ),
+                              child: Icon(Icons.money, color: Theme.of(context).primaryColorLight, size: deviceSize.width*0.09,),
+                            ),
                           ]
                         ),
-                        textFieldContainer(context, 'CARDHOLDER NAME', deviceSize.width*0.9),
-                        textFieldContainer(context, 'Patient Name', deviceSize.width*0.5),
+                        Padding(
+                          padding: EdgeInsets.only(top: 20, bottom: 10),
+                          child: Text(
+                            "CARDHOLDER NAME",
+                            style: TextStyle(
+                                fontSize: 18,
+                                color: Theme.of(context).primaryColorLight
+                            ),
+                          ),
+                        ),
+                        textFieldContainer(context, deviceSize.width*0.9),
+                        Row(
+                          children: <Widget>[
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Padding(
+                                  padding: EdgeInsets.only(top: 20, bottom: 10),
+                                  child: Text(
+                                    "EXPIRE DATE",
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        color: Theme.of(context).primaryColorLight
+                                    ),
+                                  ),
+                                ),
+                                textFieldContainer(context, deviceSize.width*0.5),
+                              ],
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Padding(
+                                  padding: EdgeInsets.only(top: 20, bottom: 10, left: 10),
+                                  child: Text(
+                                    "CVV",
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        color: Theme.of(context).primaryColorLight
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  margin: EdgeInsets.only(left: deviceSize.width*0.03),
+                                  height: MediaQuery.of(context).size.height*0.06,
+                                  width: MediaQuery.of(context).size.width*0.17,
+                                  decoration: BoxDecoration(
+                                    // color: Colors.black12,
+                                      borderRadius: BorderRadius.circular(0),
+                                      border: Border.all(
+                                        color: Colors.grey,
+                                        style: BorderStyle.solid,
+                                      )
+                                  ),
+                                  child: Icon(Icons.money, color: Theme.of(context).primaryColorLight, size: deviceSize.width*0.09,),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+
+                        // Row(
+                        //   children: <Widget>[
+                        //     textFieldContainer(context, deviceSize.width*0.5),
+                        //     Container(
+                        //       margin: EdgeInsets.only(left: deviceSize.width*0.03),
+                        //       height: MediaQuery.of(context).size.height*0.06,
+                        //       width: MediaQuery.of(context).size.width*0.17,
+                        //       decoration: BoxDecoration(
+                        //         // color: Colors.black12,
+                        //           borderRadius: BorderRadius.circular(0),
+                        //           border: Border.all(
+                        //             color: Colors.grey,
+                        //             style: BorderStyle.solid,
+                        //           )
+                        //       ),
+                        //       child: Icon(Icons.money, color: Theme.of(context).primaryColorLight, size: deviceSize.width*0.09,),
+                        //     ),
+                        //   ],
+                        // )
+
                       ],
                     ),
                   ),
                 ),
               ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: deviceSize.height*0.01),
                 child: Row(
                     children: <Widget>[
                       Checkbox(

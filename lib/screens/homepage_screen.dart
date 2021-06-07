@@ -7,6 +7,8 @@ import '../screens/od_services_screen.dart';
 enum onTapValue{findDoctor, ODservice, findAmbulance, faq}
 
 class HomepageScreen extends StatelessWidget {
+  static const routeName = '/';
+
   onTapValue _onTapped;
 
   // void shadeAngles(int val){
@@ -53,6 +55,7 @@ class HomepageScreen extends StatelessWidget {
 
       },
       child: Container(
+        height: MediaQuery.of(ctx).size.height*0.5,
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
@@ -85,12 +88,13 @@ class HomepageScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final deviceSize = MediaQuery.of(context).size;
     return Scaffold(
       // backgroundColor: Theme.of(context).backgroundColor,
       body: Stack(
-        // mainAxisSize: MainAxisSize.max,
         children:<Widget>[
           Container(
+            height: deviceSize.height*1,
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
@@ -108,9 +112,9 @@ class HomepageScreen extends StatelessWidget {
           Column(
             children:<Widget>[
               Padding(
-                padding: EdgeInsets.only(top: 80, right: 20, left: 20, bottom: 10),
+                padding: EdgeInsets.only(top: 40, right: 20, left: 20, bottom: 0),
                 child: Container(
-                  height: 250,
+                  height: deviceSize.height*0.35,
                   decoration: BoxDecoration(
                     color: Theme.of(context).canvasColor,
                     borderRadius: BorderRadius.circular(15),
@@ -123,7 +127,8 @@ class HomepageScreen extends StatelessWidget {
               Expanded(
                 child: GridView.count(
                   primary: false,
-                  padding: const EdgeInsets.all(30),
+                  padding: EdgeInsets.symmetric(horizontal: deviceSize.width*0.07, vertical: deviceSize.height*0.07),
+                  childAspectRatio: (deviceSize.height)*0.002,
                   crossAxisSpacing: 10,
                   mainAxisSpacing: 10,
                   crossAxisCount: 2,

@@ -14,6 +14,7 @@ class FindDoctorScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final doctorCategories = Provider.of<DoctorCategories>(context).items;
+    final deviceSize = MediaQuery.of(context).size;
 
     return Scaffold(
       appBar: AppBar(
@@ -24,6 +25,7 @@ class FindDoctorScreen extends StatelessWidget {
         child: Column(
           children:<Widget> [
             Container(
+              height: deviceSize.height*0.2,
               padding: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
               child: TextFormField(
                 style: TextStyle(color: Colors.black ),
@@ -52,10 +54,11 @@ class FindDoctorScreen extends StatelessWidget {
                 // },
               ),
             ),
-            Container(height: 100,),
+            Container(height: deviceSize.height*0.06,),
             Text('SEARCH DOCTORS', style: Theme.of(context).textTheme.headline1,),
             Container(
-              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 30),
+              height: deviceSize.height*0.1,
+              padding: EdgeInsets.symmetric(vertical: 0, horizontal: 30),
               child: Text(
                 'Search by directly typing the doctors name, speciality, symptoms, clinics, hospital, etc. You can also search by health concerns listed below',
                 style: Theme.of(context).textTheme.bodyText2,
@@ -64,7 +67,7 @@ class FindDoctorScreen extends StatelessWidget {
             ),
             Container(
               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-              height: MediaQuery.of(context).size.height / 2.5,
+              height: deviceSize.height * 0.4,
               // child: GestureDetector(
               //   onTap: ()=>MedicalRecordsScreen(),
                     // ()=>Navigator.of(context).pushNamed(MedicalRecordsScreen().routeName,),
@@ -72,9 +75,9 @@ class FindDoctorScreen extends StatelessWidget {
                   padding: const EdgeInsets.all(10),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
-                    childAspectRatio: MediaQuery.of(context).size.width /(MediaQuery.of(context).size.height / 6),
+                    childAspectRatio: MediaQuery.of(context).size.width /(MediaQuery.of(context).size.height / 7),
                     crossAxisSpacing: 20,
-                    mainAxisSpacing: 20
+                    mainAxisSpacing: 15
                   ),
                   itemBuilder: (ctx, i){
                     return ChangeNotifierProvider.value(

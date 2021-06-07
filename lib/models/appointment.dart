@@ -3,7 +3,8 @@ import 'package:provider/provider.dart';
 
 class Appointment with ChangeNotifier{
   final String id;
-  final DateTime date;
+  String date;
+  String time;
   // final DateTime time;
   final String docId;
   final String name;
@@ -13,6 +14,7 @@ class Appointment with ChangeNotifier{
   Appointment({
     @required this.id,
     @required this.date,
+    @required this.time,
     // @required this.time,
     @required this.docId,
     @required this.name,

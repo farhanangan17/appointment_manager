@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../widgets/bottom_bar.dart';
 import '../providers/doctor_credentials.dart';
 import 'appointment_payment_screen.dart';
+import '../models/appointment.dart';
 
 class AppointmentInformationScreen extends StatefulWidget {
   static const routeName = '/appointment_information_screen';
@@ -15,12 +16,12 @@ class AppointmentInformationScreen extends StatefulWidget {
 class _AppointmentInformationScreenState extends State<AppointmentInformationScreen> {
   var _visited = false;
 
-  Widget textFieldContainer(BuildContext ctx, String title){
+  Widget textFieldContainer(BuildContext ctx, String title, Size deviceSize){
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Padding(
-          padding: EdgeInsets.only(top: 20, bottom: 10),
+          padding: EdgeInsets.only(top: deviceSize.height*0.02, bottom: deviceSize.height*0.01),
           child: Text(
             title,
             style: TextStyle(
@@ -30,7 +31,7 @@ class _AppointmentInformationScreenState extends State<AppointmentInformationScr
           ),
         ),
         Container(
-          height: 45,
+          height: deviceSize.height*0.06,
           child: TextFormField(
             // style: TextFormS,
               decoration: InputDecoration(
@@ -49,9 +50,9 @@ class _AppointmentInformationScreenState extends State<AppointmentInformationScr
     );
   }
 
-  Container cardButton(ctx, String str){
+  Container cardButton(ctx, String str, Size deviceSize){
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 0, vertical: 10),
+      margin: EdgeInsets.symmetric(horizontal: 0, vertical: deviceSize.height*0.01),
       child: Center(
           child: Text(str, style: TextStyle(color: Colors.white),)
       ),
@@ -76,8 +77,22 @@ class _AppointmentInformationScreenState extends State<AppointmentInformationScr
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
     final routeArgs = ModalRoute.of(context).settings.arguments as Map<String, String>;
+    final appId = routeArgs['appId'];
     final docId = routeArgs['id'];
+    final appDate = routeArgs['date'];
+    final appTime = routeArgs['time'];
+
     final _doctorProfile = Provider.of<DoctorCredentials>(context).findById(docId);
+
+    var _tempApp = Appointment(
+      id: appId,
+      date: appDate,
+      time: appTime,
+      docId: docId,
+      name: '',
+      reason: '',
+      patientName: '',
+    );
 
 
     return Scaffold(
@@ -97,8 +112,8 @@ class _AppointmentInformationScreenState extends State<AppointmentInformationScr
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Container(
-                    margin: EdgeInsets.symmetric(horizontal: 0, vertical: 20),
-                    height: 30,
+                    margin: EdgeInsets.symmetric(horizontal: 0, vertical: deviceSize.height*0.02),
+                    height: deviceSize.height*0.03,
                     child: Text('--------Progress Bar-------'),
                   ),
                   Container(
@@ -113,7 +128,7 @@ class _AppointmentInformationScreenState extends State<AppointmentInformationScr
                           indent: 70,
                           endIndent: 70,
                         ),
-                        Container(child: Text('Appointment Time'))
+                        Container(child: Row(children: <Widget>[Text(appDate.toString()), Text(_tempApp.time.toString())]))
                       ],
                     ),
                   ),
@@ -127,16 +142,16 @@ class _AppointmentInformationScreenState extends State<AppointmentInformationScr
                     // height: deviceSize.height *0.33,
                     child: Column(
                       children: <Widget>[
-                        textFieldContainer(context, 'Your Name'),
-                        textFieldContainer(context, 'Reason For Visit'),
-                        textFieldContainer(context, 'Patient Name'),
+                        textFieldContainer(context, 'Your Name', deviceSize),
+                        textFieldContainer(context, 'Reason For Visit', deviceSize),
+                        textFieldContainer(context, 'Patient Name', deviceSize),
                       ],
                     ),
                   ),
                 ),
               ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: deviceSize.height*0.015),
                 child: Row(
                     children: <Widget>[
                       Checkbox(
@@ -162,7 +177,7 @@ class _AppointmentInformationScreenState extends State<AppointmentInformationScr
                     }
                   );
                 },
-                  child: cardButton(context, 'Next')
+                  child: cardButton(context, 'Next', deviceSize)
               ),
             ],
           ),
