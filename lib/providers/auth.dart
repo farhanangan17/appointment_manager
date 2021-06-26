@@ -33,7 +33,7 @@ class Auth with ChangeNotifier{
   }
 
   Future<void> signup(String name, String email, String contact, String password) async{
-    final url = Uri.parse('http://192.168.1.102:3333/api/patient/register');
+    final url = Uri.parse('http://192.168.1.***:3333/api/patient/register');
     try{
       final response = await http.post(
           url,
@@ -68,7 +68,7 @@ class Auth with ChangeNotifier{
   }
 
   Future<void> login (String email, String password) async {
-    final url = Uri.parse('http://192.168.1.102:3333/api/patient/login');
+    final url = Uri.parse('http://192.168.1.***:3333/api/patient/login');
     // print(postData);
     try{
       final response = await http.post(
