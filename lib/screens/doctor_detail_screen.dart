@@ -144,6 +144,12 @@ class DoctorDetailScreen extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: BottomBar(),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Theme.of(context).primaryColorLight,
+        child: Icon(Icons.home),
+        onPressed: (){},
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }

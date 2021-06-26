@@ -8,8 +8,33 @@ import '../providers/doctor_categories.dart';
 import '../widgets/find_doctor_item.dart';
 import 'medical_records_screen.dart';
 
-class FindDoctorScreen extends StatelessWidget {
+class FindDoctorScreen extends StatefulWidget {
   static const routeName = '/FindDocScreen';
+
+  @override
+  _FindDoctorScreenState createState() => _FindDoctorScreenState();
+}
+
+class _FindDoctorScreenState extends State<FindDoctorScreen> {
+  bool _isInit = true;
+  bool _isLoading = false;
+
+  @override
+  void didChangeDependencies() {
+    if(_isInit) {
+      setState(() {
+        _isLoading = true;
+      });
+      Provider.of<DoctorCategories>(context).fetchCategories().then((_){
+        setState(() {
+          _isLoading = false;
+        });
+      });
+    }
+    _isInit = false;
+    super.didChangeDependencies();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +68,7 @@ class FindDoctorScreen extends StatelessWidget {
                   hintText: ('Search Doctors'),
                   hintStyle: TextStyle(color: Colors.white),
                 ),
-                textInputAction: TextInputAction.next,
+                textInputAction: TextInputAction.done,
                 // onFieldSubmitted: (_){},
                 // onSaved: (val){},
                 // validator: (value){
@@ -92,7 +117,13 @@ class FindDoctorScreen extends StatelessWidget {
           ]
         ),
       ),
-      bottomNavigationBar: Container(height: 80, child: BottomBar()),
+      bottomNavigationBar: BottomBar(),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Theme.of(context).primaryColorLight,
+        child: Icon(Icons.home),
+        onPressed: (){},
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }

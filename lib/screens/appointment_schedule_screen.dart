@@ -51,13 +51,14 @@ class _AppointmentScheduleScreenState extends State<AppointmentScheduleScreen> {
     final _doctorProfile = Provider.of<DoctorCredentials>(context).findById(docId);
     final deviceSize = MediaQuery.of(context).size;
     var _tempApp = Appointment(
-        id: DateTime.now().toString(),
-        date: '',
-        time: '',
-        docId: docId,
-        name: '',
-        reason: '',
-        patientName: '',
+      id: DateTime.now().toString(),
+      date: 'May 16, 2021',
+      time: '',
+      docId: docId,
+      name: '',
+      reason: '',
+      patientName: '',
+      visited: false,
     );
 
     return Scaffold(
@@ -104,15 +105,14 @@ class _AppointmentScheduleScreenState extends State<AppointmentScheduleScreen> {
 
                       //Day Changed
                       onDaySelected: (DateTime selectDay, DateTime focusDay) {
-                        setState(() {
+                        // setState(() {
                           selectedDay = selectDay;
                           focusedDay = focusDay;
-                          _tempApp.date = DateFormat.yMMMMd('en_US').format(focusDay);
-                        });
-                        // _tempApp.date = DateFormat.yMMMMd('en_US').format(focusedDay);
+                        // });
+                        _tempApp.date = DateFormat.yMMMMd('en_US').format(focusDay);
 
-                        // print(_tempApp.date);
-                        // print(_tempApp.docId);
+                        print(_tempApp.date);
+                        print(_tempApp.time);
                       },
                       onPageChanged: (focusDay) {
                         focusedDay = focusDay;
@@ -170,10 +170,10 @@ class _AppointmentScheduleScreenState extends State<AppointmentScheduleScreen> {
                               child: Text('09:30 AM'),
                               onPressed: (){
                                 _tempApp.time = DateFormat.jm().format(DateTime(0, 0, 0, 09, 30));
-                                print(_tempApp.time);
                                 print(_tempApp.date);
-                                // print(_tempApp.docId);
-                                },
+                                print(_tempApp.time);
+                                print(_tempApp.docId);
+                              },
                             ),
                             TextButton(child: Text('10:30 AM'),),
                             TextButton(child: Text('11:30 AM'),),
@@ -198,9 +198,6 @@ class _AppointmentScheduleScreenState extends State<AppointmentScheduleScreen> {
                     'id': _doctorProfile.id,
                     'date': _tempApp.date,
                     'time': _tempApp.time,
-                    // 'name': _tempApp.name,
-                    // 'reasons': _tempApp.reason,
-                    // 'patientName': _tempApp.patientName,
                   },
               );
             },
@@ -236,6 +233,12 @@ class _AppointmentScheduleScreenState extends State<AppointmentScheduleScreen> {
         ],
       ),
       bottomNavigationBar: BottomBar(),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Theme.of(context).primaryColorLight,
+        child: Icon(Icons.home),
+        onPressed: (){},
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }

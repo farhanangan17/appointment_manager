@@ -259,6 +259,12 @@ class _AppointmentPaymentScreenState extends State<AppointmentPaymentScreen> {
         ),
       ),
       bottomNavigationBar: BottomBar(),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Theme.of(context).primaryColorLight,
+        child: Icon(Icons.home),
+        onPressed: (){},
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }

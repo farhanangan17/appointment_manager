@@ -5,7 +5,7 @@ class DoctorCredential with ChangeNotifier{
   final String id;
   final String doctorName;
   final String doctorTitle;
-  final String categoryId;
+  final int categoryId;
   final int sameCategory;
   final List<String> education;
   final List<String> specialization;

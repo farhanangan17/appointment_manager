@@ -1,4 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:carousel_pro/carousel_pro.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 import '../widgets/bottom_bar.dart';
 import '../screens/find_doctor_screen.dart';
@@ -7,9 +10,10 @@ import '../screens/od_services_screen.dart';
 enum onTapValue{findDoctor, ODservice, findAmbulance, faq}
 
 class HomepageScreen extends StatelessWidget {
-  static const routeName = '/';
+  static const routeName = '/homepage_screen';
 
   onTapValue _onTapped;
+
 
   // void shadeAngles(int val){
   //     switch(val){
@@ -64,7 +68,6 @@ class HomepageScreen extends StatelessWidget {
               Theme.of(ctx).primaryColor,
               Theme.of(ctx).primaryColorLight,
             ],
-            // (_) => shadeAngles(val),
             end: Alignment.bottomRight,
             begin: Alignment.topLeft,
             stops: [0,1],
@@ -119,16 +122,31 @@ class HomepageScreen extends StatelessWidget {
                     color: Theme.of(context).canvasColor,
                     borderRadius: BorderRadius.circular(15),
                   ),
-                  child: Center(
-                    child: Text('SLIDER', style: Theme.of(context).textTheme.headline1),
-                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(15),
+                    child: Carousel(
+                      images: [
+                        AssetImage('assets/images/doctor.jpg', ),
+                        AssetImage('assets/images/blue jeans.jpeg'),
+                        AssetImage('assets/images/download.png'),
+                      ],
+                      boxFit: BoxFit.fill,
+                      dotSize: 7,
+                      dotIncreasedColor: Theme.of(context).primaryColorLight,
+                      dotColor: Theme.of(context).primaryColorLight,
+                      dotBgColor: Colors.transparent,
+                      indicatorBgPadding: 5,
+                      borderRadius: false,
+                      // radius: Radius.circular(15),
+                    ),
+                  )
                 ),
               ),
               Expanded(
                 child: GridView.count(
                   primary: false,
                   padding: EdgeInsets.symmetric(horizontal: deviceSize.width*0.07, vertical: deviceSize.height*0.07),
-                  childAspectRatio: (deviceSize.height)*0.002,
+                  childAspectRatio: (deviceSize.height/deviceSize.width)*0.8,
                   crossAxisSpacing: 10,
                   mainAxisSpacing: 10,
                   crossAxisCount: 2,
@@ -183,7 +201,13 @@ class HomepageScreen extends StatelessWidget {
 
         ]
       ),
-      bottomNavigationBar: Container(height: 65, child: BottomBar()),
+      bottomNavigationBar: BottomBar(),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Theme.of(context).primaryColorLight,
+        child: Icon(Icons.home),
+        onPressed: (){},
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }

@@ -1,65 +1,123 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-import '../main.dart';
+import '../screens/od_services_screen.dart';
+import 'app_drawer.dart';
+import '../providers/auth.dart';
 
-class BottomBar extends StatelessWidget {
 
-  BottomNavigationBarItem _bottomNavigationBarItem(ctx, Icon icon){
-    return BottomNavigationBarItem(
-      // backgroundColor: Theme.of(ctx).primaryColorDark,
-      icon: icon,
-      label: ('a'),
+class BottomBar extends StatefulWidget {
+
+  @override
+  _BottomBarState createState() => _BottomBarState();
+}
+
+class _BottomBarState extends State<BottomBar> {
+  @override
+  Widget build(BuildContext context) {
+    final placeholder = Opacity(
+      opacity: 0,
+      child: IconButton(icon: Icon(Icons.no_cell), onPressed: null),
+    );
+
+    return BottomAppBar(
+      shape: CircularNotchedRectangle(),
+      notchMargin: 8,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          buildTabItem(
+            index: 0,
+            icon: Icon(Icons.menu),
+          ),
+          buildTabItem(
+            index: 1,
+            icon: Icon(Icons.crop_square_outlined),
+          ),
+          placeholder,
+          buildTabItem(
+            index: 2,
+            icon: Icon(Icons.receipt_outlined),
+          ),
+          buildTabItem(
+            index: 3,
+            icon: Icon(Icons.account_circle),
+          ),
+        ],
+      ),
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return BottomNavigationBar(
-      showSelectedLabels: false,
-      showUnselectedLabels: false,
-      onTap: (_){},
-      items: [
-        _bottomNavigationBarItem(
-          context,
-          Icon(
-            Icons.view_headline,
-            size: 30,
-            color: Theme.of(context).primaryColorDark,
+  Widget buildTabItem({
+    @required int index,
+    @required Icon icon,
+  }) {
+
+    // final isSelected = index == widget.index;
+
+    switch(index) {
+      case 0:
+        // print('zero!');
+        return IconTheme(
+          data: IconThemeData(
+            color: Colors.black,
           ),
-        ),
-        _bottomNavigationBarItem(
-          context,
-          Icon(
-            Icons.grid_view,
-            size: 30,
-            color: Theme.of(context).primaryColorDark,
+          child: IconButton(
+            icon: icon,
+            onPressed: () {
+              Scaffold(
+                drawer: AppDrawer(),
+              );
+            },
           ),
-        ),
-        _bottomNavigationBarItem(
-          context,
-          Icon(
-            Icons.home,
-            size: 30,
-            color: Theme.of(context).primaryColorDark,
+        );
+        break; // The switch statement must be told to exit, or it will execute every case.
+      case 1:
+        // print('one!');
+        return IconTheme(
+          data: IconThemeData(
+            color: Colors.black,
           ),
-        ),
-        _bottomNavigationBarItem(
-          context,
-          Icon(
-            Icons.list_alt,
-            size: 30,
-            color: Theme.of(context).primaryColorDark,
+          child: IconButton(
+            icon: icon,
+            onPressed: () {
+              Navigator.of(context).pushNamed(OdServicesScreen.routeName);
+            }
           ),
-        ),
-        _bottomNavigationBarItem(
-          context,
-          Icon(
-            Icons.account_circle,
-            size: 30,
-            color: Theme.of(context).primaryColorDark,
+        );
+        break;
+      case 2:
+        // print('two!');
+        return IconTheme(
+          data: IconThemeData(
+            color: Colors.black,
           ),
-        ),
-      ],
-    );
+          child: IconButton(
+            icon: icon,
+            onPressed: () {
+              Navigator.of(context).pushNamed(OdServicesScreen.routeName);
+            }
+          ),
+        );
+        break;
+      case 3:
+        // print('choose a different number!');
+        return IconTheme(
+          data: IconThemeData(
+            color: Colors.black,
+          ),
+          child: IconButton(
+            icon: icon,
+            onPressed: () {
+              // Navigator.of(context).pushNamed(OdServicesScreen.routeName);
+              Navigator.of(context).pushReplacementNamed('/');
+              Provider.of<Auth>(context, listen: false).logout();
+            },
+          ),
+        );
+        break;
+    }
+
+
   }
 }

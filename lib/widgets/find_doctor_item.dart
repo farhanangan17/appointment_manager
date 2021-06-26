@@ -14,7 +14,7 @@ class FindDoctorItem extends StatelessWidget {
   void selectCategory(BuildContext ctx, DoctorCategory docCateg){
     Navigator.of(ctx).pushNamed(MedicalRecordsScreen.routeName,
         arguments:{
-          'id': docCateg.categoryId,
+          'id': docCateg.id,
         }
     );
   }
@@ -32,7 +32,7 @@ class FindDoctorItem extends StatelessWidget {
           color: Theme.of(context).buttonColor,
         ),
         child: Center(
-          child: Text(catTitle.categoryTitle, style: Theme.of(context).textTheme.headline3,),
+          child: Text(catTitle.title, style: Theme.of(context).textTheme.headline3,),
         ),
       ),
     );

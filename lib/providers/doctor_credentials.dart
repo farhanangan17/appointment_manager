@@ -10,7 +10,7 @@ class DoctorCredentials with ChangeNotifier{
       id: 'd1',
       doctorName: 'Dr. John Doe',
       doctorTitle: 'General Physician',
-      categoryId: 'c1',
+      categoryId: 1,
       sameCategory: 3,
       education: [
         'MD-General Medicine|Institute',
@@ -34,7 +34,7 @@ class DoctorCredentials with ChangeNotifier{
       id: 'd2',
       doctorName: 'Dr. John Doe',
       doctorTitle: 'General Physician',
-      categoryId: 'c1',
+      categoryId: 1,
       sameCategory: 3,
       education: [
         'MD-General Medicine|Institute',
@@ -58,7 +58,7 @@ class DoctorCredentials with ChangeNotifier{
       id: 'd3',
       doctorName: 'Dr. John Doe',
       doctorTitle: 'General Physician',
-      categoryId: 'c1',
+      categoryId: 3,
       sameCategory: 3,
       education: [
         'MD-General Medicine|Institute',
@@ -82,7 +82,7 @@ class DoctorCredentials with ChangeNotifier{
       id: 'd4',
       doctorName: 'Dr. John Doe',
         doctorTitle: 'General Physician',
-      categoryId: 'c3',
+      categoryId: 4,
       sameCategory: 1,
       education: [
         'MD-General Medicine|Institute',
@@ -109,8 +109,10 @@ class DoctorCredentials with ChangeNotifier{
     return [..._docCredItems];
   }
 
-  DoctorCredential findByCatId(String catId){
-    return _docCredItems.firstWhere((prod) => prod.categoryId == catId);
+  List<DoctorCredential> findByCatId(int catId){
+    List<DoctorCredential> _sameCatDoc = [];
+    _sameCatDoc.addAll(_docCredItems.where((element) => element.categoryId == catId));
+    return _sameCatDoc;
   }
 
   DoctorCredential findById(String id){

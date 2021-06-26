@@ -11,10 +11,14 @@ import 'screens/appointment_information_screen.dart';
 import 'screens/appointment_payment_screen.dart';
 import 'screens/od_services_screen.dart';
 import 'screens/auth_screen.dart';
+import 'screens/appointment_list_screen.dart';
 import 'models/doctor_category.dart';
 import 'models/doctor_credential.dart';
+import 'models/appointment.dart';
 import 'providers/doctor_categories.dart';
 import 'providers/doctor_credentials.dart';
+import 'providers/appointments.dart';
+import 'providers/auth.dart';
 
 import 'widgets/test.dart';
 
@@ -45,67 +49,95 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider.value(
           value: DoctorCredentials(),
         ),
-      ],
-      child: MaterialApp(
-        // title: 'Flutter Demo',
-        theme: ThemeData(
-          // primarySwatch: Colors.blue,
-          primaryColorLight: HexColor('#44b3b2'),
-          primaryColor: HexColor('#326060'),
-          primaryColorDark: Colors.black45,
-          buttonColor: HexColor('#E1FFF7'),
-          canvasColor: Colors.white,
-          appBarTheme: AppBarTheme(
-            color: HexColor('#24a7a5')
-          ),
-          textTheme: TextTheme(
-            headline1: TextStyle(
-              fontFamily: 'Quicksand',
-              fontSize: 25,
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
-            ),
-            headline2: TextStyle(
-              fontFamily: 'Quicksand',
-              fontSize: 25,
-              fontWeight: FontWeight.bold,
-              color: HexColor('#326261'),
-            ),
-            headline4: TextStyle(
-              fontFamily: 'Quicksand',
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
-            ),
-            bodyText1: TextStyle(
-              fontFamily: 'OpenSans',
-              fontSize: 14,
-              color: Colors.white,
-            ),
-            bodyText2: TextStyle(
-              fontFamily: 'OpenSans',
-              fontSize: 14,
-              color: Colors.black,
-            ),
-            headline3: TextStyle(
-              fontFamily: 'OpenSans',
-              fontSize: 14,
-              color: HexColor('#25A09D'),
-            ),
-          )
+        ChangeNotifierProvider.value(
+          value: Appointment(),
         ),
-        // home: HomepageScreen(),
-        home: AuthScreen(),
-        routes: {
-          FindDoctorScreen.routeName: (ctx) => FindDoctorScreen(),
-          MedicalRecordsScreen.routeName: (ctx) => MedicalRecordsScreen(),
-          DoctorDetailScreen.routeName: (ctx) => DoctorDetailScreen(),
-          AppointmentScheduleScreen.routeName: (ctx) => AppointmentScheduleScreen(),
-          AppointmentInformationScreen.routeName: (ctx) => AppointmentInformationScreen(),
-          AppointmentPaymentScreen.routeName: (ctx) => AppointmentPaymentScreen(),
-          OdServicesScreen.routeName: (ctx) => OdServicesScreen(),
-
-        }
+        ChangeNotifierProvider.value(
+          value: Appointments(),
+        ),
+        ChangeNotifierProvider.value(
+          value: Auth(),
+        ),
+      ],
+      child: Consumer<Auth>(
+        builder: (ctx, auth, _) =>
+         MaterialApp(
+          // title: 'Flutter Demo',
+          theme: ThemeData(
+            // primarySwatch: Colors.blue,
+            primaryColorLight: HexColor('#44b3b2'),
+            primaryColor: HexColor('#326060'),
+            primaryColorDark: Colors.black45,
+            buttonColor: HexColor('#E1FFF7'),
+            canvasColor: Colors.white,
+            appBarTheme: AppBarTheme(
+              color: HexColor('#24a7a5')
+            ),
+            textTheme: TextTheme(
+              headline1: TextStyle(
+                fontFamily: 'Quicksand',
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
+              headline2: TextStyle(
+                fontFamily: 'Quicksand',
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+                color: HexColor('#326261'),
+              ),
+              headline4: TextStyle(
+                fontFamily: 'Quicksand',
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
+              bodyText1: TextStyle(
+                fontFamily: 'OpenSans',
+                fontSize: 14,
+                color: Colors.white,
+              ),
+              bodyText2: TextStyle(
+                fontFamily: 'OpenSans',
+                fontSize: 14,
+                color: Colors.black,
+              ),
+              headline3: TextStyle(
+                fontFamily: 'OpenSans',
+                fontSize: 14,
+                color: HexColor('#25A09D'),
+              ),
+            )
+          ),
+          // home: AppointmentListScreen(),
+          home: auth.isAuth
+            ? HomepageScreen()
+            :
+          // AppointmentListScreen(),
+          FutureBuilder(
+                future: auth.tryAutoLogin(),
+                builder: (ctx, authResultSnapshot) =>
+                authResultSnapshot.connectionState == ConnectionState.waiting
+                  ? Scaffold(
+                      body: Center(
+                        child: Text('APP LOADING! PLEASE WAIT.'),
+                      ),
+                    )
+                  : AuthScreen(),
+              ),
+          // AuthScreen(),
+          routes: {
+            HomepageScreen.routeName: (ctx) => HomepageScreen(),
+            FindDoctorScreen.routeName: (ctx) => FindDoctorScreen(),
+            MedicalRecordsScreen.routeName: (ctx) => MedicalRecordsScreen(),
+            DoctorDetailScreen.routeName: (ctx) => DoctorDetailScreen(),
+            AppointmentScheduleScreen.routeName: (ctx) => AppointmentScheduleScreen(),
+            AppointmentInformationScreen.routeName: (ctx) => AppointmentInformationScreen(),
+            AppointmentPaymentScreen.routeName: (ctx) => AppointmentPaymentScreen(),
+            OdServicesScreen.routeName: (ctx) => OdServicesScreen(),
+            AppointmentListScreen.routeName: (ctx) => AppointmentPaymentScreen(),
+          }
+        ),
       )
     );
   }

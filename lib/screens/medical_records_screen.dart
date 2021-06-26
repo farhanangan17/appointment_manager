@@ -10,7 +10,7 @@ class MedicalRecordsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final routeArgs = ModalRoute.of(context).settings.arguments as Map<String, String>;
+    final routeArgs = ModalRoute.of(context).settings.arguments as Map<String, int>;
     final categoryId = routeArgs['id'];
     final displayedDoctors = Provider.of<DoctorCredentials>(context).findByCatId(categoryId);
     // final allDoctors = Provider.of<DoctorCredentials>(context).items;
@@ -24,13 +24,19 @@ class MedicalRecordsScreen extends StatelessWidget {
         // itemCount: displayedDoctors.,
         itemBuilder: (ctx, index){
           return ChangeNotifierProvider.value(
-            value: displayedDoctors,
+            value: displayedDoctors[index],
             child: MedicalRecordItem(),
           );
         },
-        itemCount: displayedDoctors.sameCategory,
+        itemCount: displayedDoctors.length,
       ),
       bottomNavigationBar: BottomBar(),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Theme.of(context).primaryColorLight,
+        child: Icon(Icons.home),
+        onPressed: (){},
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }
