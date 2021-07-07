@@ -93,10 +93,9 @@ class _FindDoctorScreenState extends State<FindDoctorScreen> {
             Container(
               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               height: deviceSize.height * 0.4,
-              // child: GestureDetector(
-              //   onTap: ()=>MedicalRecordsScreen(),
-                    // ()=>Navigator.of(context).pushNamed(MedicalRecordsScreen().routeName,),
-                child: GridView.builder(
+              child: _isLoading
+                ?Center(child: CircularProgressIndicator(backgroundColor: Colors.black12, valueColor:AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColorLight),),)
+                :GridView.builder(
                   padding: const EdgeInsets.all(10),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,

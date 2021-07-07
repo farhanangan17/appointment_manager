@@ -66,7 +66,7 @@ class _AppointmentPaymentScreenState extends State<AppointmentPaymentScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final routeArgs = ModalRoute.of(context).settings.arguments as Map<String, int>;
+    final routeArgs = ModalRoute.of(context).settings.arguments as Map<String, String>;
     final _visitAmount = routeArgs['amount'];
     final deviceSize = MediaQuery.of(context).size;
 

@@ -12,13 +12,16 @@ import 'screens/appointment_payment_screen.dart';
 import 'screens/od_services_screen.dart';
 import 'screens/auth_screen.dart';
 import 'screens/appointment_list_screen.dart';
+import 'screens/reminder_screen.dart';
 import 'models/doctor_category.dart';
 import 'models/doctor_credential.dart';
 import 'models/appointment.dart';
+import 'models/reminder.dart';
 import 'providers/doctor_categories.dart';
 import 'providers/doctor_credentials.dart';
 import 'providers/appointments.dart';
 import 'providers/auth.dart';
+import 'providers/reminders.dart';
 
 import 'widgets/test.dart';
 
@@ -57,6 +60,12 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider.value(
           value: Auth(),
+        ),
+        ChangeNotifierProvider.value(
+          value: Reminder(),
+        ),
+        ChangeNotifierProvider.value(
+          value: Reminders(),
         ),
       ],
       child: Consumer<Auth>(
@@ -112,20 +121,19 @@ class MyApp extends StatelessWidget {
           // home: AppointmentListScreen(),
           home: auth.isAuth
             ? HomepageScreen()
-            :
+            : HomepageScreen(),
           // AppointmentListScreen(),
-          FutureBuilder(
-                future: auth.tryAutoLogin(),
-                builder: (ctx, authResultSnapshot) =>
-                authResultSnapshot.connectionState == ConnectionState.waiting
-                  ? Scaffold(
-                      body: Center(
-                        child: Text('APP LOADING! PLEASE WAIT.'),
-                      ),
-                    )
-                  : AuthScreen(),
-              ),
-          // AuthScreen(),
+          // FutureBuilder(
+          //       future: auth.tryAutoLogin(),
+          //       builder: (ctx, authResultSnapshot) =>
+          //       authResultSnapshot.connectionState == ConnectionState.waiting
+          //         ? Scaffold(
+          //             body: Center(
+          //               child: Text('APP LOADING! PLEASE WAIT.'),
+          //             ),
+          //           )
+          //         : AuthScreen(),
+          //     ),
           routes: {
             HomepageScreen.routeName: (ctx) => HomepageScreen(),
             FindDoctorScreen.routeName: (ctx) => FindDoctorScreen(),
@@ -136,6 +144,7 @@ class MyApp extends StatelessWidget {
             AppointmentPaymentScreen.routeName: (ctx) => AppointmentPaymentScreen(),
             OdServicesScreen.routeName: (ctx) => OdServicesScreen(),
             AppointmentListScreen.routeName: (ctx) => AppointmentPaymentScreen(),
+            ReminderScreen.routeName: (ctx) => ReminderScreen(),
           }
         ),
       )

@@ -6,30 +6,34 @@ class DoctorCredential with ChangeNotifier{
   final String doctorName;
   final String doctorTitle;
   final int categoryId;
-  final int sameCategory;
-  final List<String> education;
-  final List<String> specialization;
-  final List<String> services;
-  final String address;
-  final int visitAmount;
-  final int yearsOfExp;
+  final String education;
+  final String membership;
+  final String specialization;
+  final String services;
+  final String organization;
+  final String orgAddress;
+  final String visitAmount;
+  final String yearsOfExp;
   final int likes;
   final String imageUrl;
+  final String schedule;
 
   DoctorCredential({
     @ required this.id,
     @ required this.doctorName,
     @required this.doctorTitle,
     @ required this.categoryId,
-    this.sameCategory,
     @ required this.education,
+    @ required this.membership,
     @ required this.specialization,
     @ required this.services,
-    @required this.address,
+    @ required this.organization,
+    @required this.orgAddress,
     @ required this.visitAmount,
     @ required this.yearsOfExp,
     @ required this.likes,
     @ required this.imageUrl,
+    @ required this.schedule,
   });
 
   notifyListeners();

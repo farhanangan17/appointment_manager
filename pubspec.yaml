@@ -31,8 +31,8 @@ dependencies:
   date_format: ^2.0.2
   http: ^0.13.3
   shared_preferences: ^2.0.6
-  dio: ^4.0.0
   jwt_decode: ^0.3.1
+  flutter_html: ^2.1.0
 #  scroll_snap_list: ^0.8.1
 #  syncfusion_flutter_calendar: ^19.1.66
 #  flutter_calendar_carousel: ^2.0.1
@@ -42,7 +42,6 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   carousel_pro: ^1.0.0
-  carousel_slider: ^3.0.0
 
 dev_dependencies:
   flutter_test:

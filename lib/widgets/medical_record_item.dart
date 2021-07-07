@@ -1,13 +1,23 @@
+import 'package:flutter_html/flutter_html.dart';
+import 'dart:convert';
+
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 
 import '../models/doctor_credential.dart';
+import '../models/appointment_slot.dart';
 import '../providers/doctor_credentials.dart';
+import '../providers/appointment_slots.dart';
 import '../screens/doctor_detail_screen.dart';
 import '../screens/appointment_schedule_screen.dart';
 
 class MedicalRecordItem extends StatelessWidget {
 
+//   @override
+//   _MedicalRecordItemState createState() => _MedicalRecordItemState();
+// }
+//
+// class _MedicalRecordItemState extends State<MedicalRecordItem> {
   Container cardButton(ctx, String str){
     return Container(
       child: Center(child: Text(str, style: TextStyle(color: Colors.white),)),
@@ -31,10 +41,18 @@ class MedicalRecordItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final displayedDoctors = Provider.of<DoctorCredential>(context);
+    final membershipData = json.decode(displayedDoctors.membership);
+
+    // final findTimeSlot = Provider.of<DoctorCredentials>(context).addAppointmentSlot(displayedDoctors);
+    // final _appSlotList = Provider.of<DoctorCredentials>(context).slotItems;
+
+    // final scheduleData = json.decode(displayedDoctors.schedule);
+    // final timingList = scheduleData[0]['timeList'] as List<dynamic>;
 
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 15, vertical: 8),
       child: Card(
+        elevation: 5,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -54,8 +72,9 @@ class MedicalRecordItem extends StatelessWidget {
               ),
               title: Text(displayedDoctors.doctorName, style: Theme.of(context).textTheme.headline4,),
               subtitle: Text(
-                '${displayedDoctors.doctorTitle}\n'
-                '${displayedDoctors.education[1]}'
+                '${displayedDoctors.doctorTitle}, ${membershipData},\n'
+                // '${scheduleData[1]['timeList'][0]} '
+                // '${timingList.length}'
               ),
             ),
             Padding(
@@ -86,6 +105,7 @@ class MedicalRecordItem extends StatelessWidget {
                     DoctorDetailScreen.routeName,
                     arguments: {'id': displayedDoctors.id},
                 );
+
               },
               child: Text('VIEW PROFILE', style: Theme.of(context).textTheme.headline3),
             ),
@@ -97,7 +117,9 @@ class MedicalRecordItem extends StatelessWidget {
                     onTap: (){
                       Navigator.of(context).pushNamed(
                         DoctorDetailScreen.routeName,
-                        arguments: {'id': displayedDoctors.id},
+                        arguments: {
+                          'id': displayedDoctors.id,
+                        },
                       );
                     },
                     child: cardButton(context, 'Profile'),
@@ -105,9 +127,11 @@ class MedicalRecordItem extends StatelessWidget {
                   SizedBox(width: MediaQuery.of(context).size.width * .055,),
                   GestureDetector(
                     onTap: (){
+                      // print('${_appSlotList[1].weekDayValue} slotting data');
+                      // findTimeSlot;
                       Navigator.of(context).pushNamed(
                           AppointmentScheduleScreen.routeName,
-                          arguments: {'id': displayedDoctors.id,}
+                          arguments: {'id': displayedDoctors.id, 'schedule': displayedDoctors.schedule}
                       );
                     },
                     child: cardButton(context, 'Book'),

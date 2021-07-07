@@ -15,6 +15,7 @@ class BottomBar extends StatefulWidget {
 class _BottomBarState extends State<BottomBar> {
   @override
   Widget build(BuildContext context) {
+    final deviceSize = MediaQuery.of(context).size;
     final placeholder = Opacity(
       opacity: 0,
       child: IconButton(icon: Icon(Icons.no_cell), onPressed: null),
@@ -53,8 +54,6 @@ class _BottomBarState extends State<BottomBar> {
     @required Icon icon,
   }) {
 
-    // final isSelected = index == widget.index;
-
     switch(index) {
       case 0:
         // print('zero!');
@@ -65,9 +64,19 @@ class _BottomBarState extends State<BottomBar> {
           child: IconButton(
             icon: icon,
             onPressed: () {
-              Scaffold(
-                drawer: AppDrawer(),
-              );
+              setState(() {
+                showModalBottomSheet(
+                  isScrollControlled: true,
+                    context: context,
+                    builder: (context){
+                      return Container(
+                          height: MediaQuery.of(context).size.height*0.8,
+                          width: MediaQuery.of(context).size.width*0.6,
+                          child: AppDrawer());
+
+                    }
+                );
+              });
             },
           ),
         );

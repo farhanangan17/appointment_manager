@@ -195,7 +195,8 @@ class _AuthScreenState extends State<AuthScreen> {
                           children: <Widget>[
                             if(_authMode == AuthMode.Signup)
                               Container(
-                                height: deviceSize.height*0.1,
+                                padding: EdgeInsets.only(bottom: deviceSize.height*0.015),
+                                // height: deviceSize.height*0.1,
                                 child: TextFormField(
                                   enabled: _authMode == AuthMode.Signup,
                                   decoration: InputDecoration(
@@ -224,7 +225,8 @@ class _AuthScreenState extends State<AuthScreen> {
                               ),
                             if(_authMode == AuthMode.Signup)
                               Container(
-                                height: deviceSize.height*0.1,
+                                padding: EdgeInsets.only(bottom: deviceSize.height*0.015),
+                                // height: deviceSize.height*0.1,
                                 child: TextFormField(
                                   enabled: _authMode == AuthMode.Signup,
                                   decoration: InputDecoration(
@@ -253,7 +255,8 @@ class _AuthScreenState extends State<AuthScreen> {
                               ),
                             if(_authMode == AuthMode.Signup)
                               Container(
-                                height: deviceSize.height*0.1,
+                                padding: EdgeInsets.only(bottom: deviceSize.height*0.015),
+                                // height: deviceSize.height*0.1,
                                 child: TextFormField(
                                   cursorColor: Colors.white,
                                   decoration: InputDecoration(
@@ -283,7 +286,8 @@ class _AuthScreenState extends State<AuthScreen> {
                               ),
                             if(_authMode == AuthMode.Login)
                               Container(
-                                height: deviceSize.height*0.1,
+                                padding: EdgeInsets.only(bottom: deviceSize.height*0.015),
+                                // height: deviceSize.height*0.1,
                                 child: TextFormField(
                                   cursorColor: Colors.white,
                                   decoration: InputDecoration(
@@ -313,7 +317,8 @@ class _AuthScreenState extends State<AuthScreen> {
                               ),
                             if(_authMode == AuthMode.Signup)
                               Container(
-                                height: deviceSize.height*0.1,
+                                padding: EdgeInsets.only(bottom: deviceSize.height*0.015),
+                                // height: deviceSize.height*0.1,
                                 child: TextFormField(
                                   decoration: InputDecoration(
                                       filled: true,
@@ -342,7 +347,8 @@ class _AuthScreenState extends State<AuthScreen> {
                               ),
                             if(_authMode == AuthMode.Login)
                               Container(
-                                height: deviceSize.height*0.1,
+                                padding: EdgeInsets.only(bottom: deviceSize.height*0.015),
+                                // height: deviceSize.height*0.1,
                                 child: TextFormField(
                                   decoration: InputDecoration(
                                       filled: true,
@@ -371,7 +377,8 @@ class _AuthScreenState extends State<AuthScreen> {
                               ),
                             if(_authMode == AuthMode.Signup)
                               Container(
-                                height: deviceSize.height*0.1,
+                                // padding: EdgeInsets.only(bottom: deviceSize.height*0.02),
+                                // height: deviceSize.height*0.1,
                                 child: TextFormField(
                                   enabled: _authMode == AuthMode.Signup,
                                   decoration: InputDecoration(

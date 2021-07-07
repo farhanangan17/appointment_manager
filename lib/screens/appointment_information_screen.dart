@@ -107,10 +107,6 @@ class _AppointmentInformationScreenState extends State<AppointmentInformationScr
     final docId = routeArgs['id'];
     final appDate = routeArgs['date'];
     final appTime = routeArgs['time'];
-    _tempApp.docId = docId;
-    _tempApp.id = appId;
-    _tempApp.date = appDate;
-    _tempApp.time = appTime;
 
 
     final _doctorProfile = Provider.of<DoctorCredentials>(context).findById(docId);
@@ -162,7 +158,7 @@ class _AppointmentInformationScreenState extends State<AppointmentInformationScr
                         children: <Widget>[
                           Text(_doctorProfile.doctorName, style: TextStyle(fontSize: 18),),
                           Text(_doctorProfile.doctorTitle, style: TextStyle(fontSize: 14),),
-                          Padding(padding: EdgeInsets.only(bottom: 5),child: Text(_doctorProfile.address, style: TextStyle(fontSize: 14),)),
+                          Padding(padding: EdgeInsets.only(bottom: 5),child: Text('${_doctorProfile.organization}, ${_doctorProfile.orgAddress}', style: TextStyle(fontSize: 14),)),
                           Divider(
                             height: 20,
                             thickness: 1,
@@ -174,8 +170,8 @@ class _AppointmentInformationScreenState extends State<AppointmentInformationScr
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
-                                Text('${_tempApp.date} at '),
-                                Text(_tempApp.time.toString()),
+                                Text('${appDate} at '),
+                                Text(appTime.toString()),
                               ]
                             )
                           )
@@ -193,53 +189,62 @@ class _AppointmentInformationScreenState extends State<AppointmentInformationScr
                       // height: deviceSize.height *0.33,
                       child: Column(
                         children: <Widget>[
-                          Column(
+                        Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Padding(
-                                  padding: EdgeInsets.only(top: deviceSize.height*0.01, bottom: deviceSize.height*0.01),
-                                  child: Text(
-                                    'Your Name',
-                                    style: TextStyle(
-                                        fontSize: 18,
-                                        color: Theme.of(context).primaryColorLight
-                                    ),
+                            children: <Widget>[
+                              Padding(
+                                padding: EdgeInsets.only(top: deviceSize.height*0.01, bottom: deviceSize.height*0.01),
+                                child: Text(
+                                  'Your Name',
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      color: Theme.of(context).primaryColorLight
                                   ),
                                 ),
-                                Container(
-                                  height: deviceSize.height*0.06,
-                                  child: TextFormField(
-                                    decoration: InputDecoration(
-                                      contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-                                      // focusColor: Theme.of(context).primaryColorLight,
-                                      border: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: Theme.of(context).primaryColorLight
-                                        ),
-                                        borderRadius: BorderRadius.all(Radius.circular(30.0))
+                              ),
+                              Container(
+                                // height: deviceSize.height*0.06,
+                                child: TextFormField(
+                                  decoration: InputDecoration(
+                                    contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                                    // focusColor: Theme.of(context).primaryColorLight,
+                                    border: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: Theme.of(context).primaryColorLight
                                       ),
+                                      borderRadius: BorderRadius.all(Radius.circular(30.0))
                                     ),
-                                    textInputAction: TextInputAction.next,
-                                    onFieldSubmitted: (_){
-                                      FocusScope.of(context).requestFocus(_reasonFocusNode);
-                                    },
-                                    validator: (val){
-                                      if(val.isEmpty){
-                                        return 'Provide your name';
-                                      }else if(val.length<3){
-                                        return 'Provide a proper value';
-                                      }else{
-                                        return null;
-                                      }
-                                    },
-                                    onSaved: (val){
-                                      setState(() {
-                                        _tempApp.name = val;
-                                      });
-                                    },
                                   ),
+                                  textInputAction: TextInputAction.next,
+                                  onFieldSubmitted: (_){
+                                    FocusScope.of(context).requestFocus(_reasonFocusNode);
+                                  },
+                                  validator: (val){
+                                    if(val.isEmpty){
+                                      return 'Provide your name';
+                                    }else if(val.length<3){
+                                      return 'Provide a proper value';
+                                    }else{
+                                      return null;
+                                    }
+                                  },
+                                  onSaved: (val){
+                                    setState(() {
+                                      _tempApp = Appointment(
+                                          id: appId,
+                                          date: appDate,
+                                          time: appTime,
+                                          docId: docId,
+                                          name: val,
+                                          reason: _tempApp.reason,
+                                          patientName: _tempApp.patientName,
+                                          visited: false,
+                                      );
+                                    });
+                                  },
                                 ),
-                              ]
+                              ),
+                            ]
                           ),
                           Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -255,7 +260,7 @@ class _AppointmentInformationScreenState extends State<AppointmentInformationScr
                                   ),
                                 ),
                                 Container(
-                                  height: deviceSize.height*0.06,
+                                  // height: deviceSize.height*0.06,
                                   child: TextFormField(
                                     decoration: InputDecoration(
                                       contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
@@ -274,7 +279,16 @@ class _AppointmentInformationScreenState extends State<AppointmentInformationScr
                                     },
                                     onSaved: (val){
                                       setState(() {
-                                        _tempApp.reason = val;
+                                        _tempApp = Appointment(
+                                          id: appId,
+                                          date: appDate,
+                                          time: appTime,
+                                          docId: docId,
+                                          name: _tempApp.name,
+                                          reason: val,
+                                          patientName: _tempApp.patientName,
+                                          visited: false,
+                                        );
                                       });
                                     },
                                     validator: (val){
@@ -304,7 +318,7 @@ class _AppointmentInformationScreenState extends State<AppointmentInformationScr
                                   ),
                                 ),
                                 Container(
-                                  height: deviceSize.height*0.06,
+                                  // height: deviceSize.height*0.06,
                                   child: TextFormField(
                                     decoration: InputDecoration(
                                       contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
@@ -323,7 +337,16 @@ class _AppointmentInformationScreenState extends State<AppointmentInformationScr
                                     },
                                     onSaved: (val){
                                       setState(() {
-                                        _tempApp.patientName = val;
+                                        _tempApp = Appointment(
+                                          id: appId,
+                                          date: appDate,
+                                          time: appTime,
+                                          docId: docId,
+                                          name: _tempApp.name,
+                                          reason: _tempApp.reason,
+                                          patientName: val,
+                                          visited: false,
+                                        );
                                       });
                                     },
                                     validator: (val){
@@ -357,7 +380,16 @@ class _AppointmentInformationScreenState extends State<AppointmentInformationScr
                           onChanged: (val){
                             setState(() {
                               _visited = val;
-                              _tempApp.visited = _visited;
+                              _tempApp = Appointment(
+                                id: appId,
+                                date: appDate,
+                                time: appTime,
+                                docId: docId,
+                                name: _tempApp.name,
+                                reason: _tempApp.reason,
+                                patientName: _tempApp.patientName,
+                                visited: val,
+                              );
                             });
                           },
 
@@ -373,7 +405,7 @@ class _AppointmentInformationScreenState extends State<AppointmentInformationScr
                     if(_isValid) _formKey.currentState.save();
                     _addAppointment.addAppointment(_tempApp);
                     // print(_tempApp.visited);
-                    // print(_tempApp.patientName);
+                    print(_tempApp.patientName);
                     Navigator.of(context).pushNamed(
                       AppointmentPaymentScreen.routeName,
                       arguments: {

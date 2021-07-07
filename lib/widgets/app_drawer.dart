@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/auth.dart';
+import '../screens/reminder_screen.dart';
+
 
 
 
@@ -10,34 +12,40 @@ class AppDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
 
-    return Drawer(
+    return Container(
+      width: deviceSize.width * 0.5,
+      // height: deviceSize.height,
       child: Column(
         children: <Widget>[
           AppBar(
-            title: Row(
-              children: <Widget>[
-                Icon(
-                  Icons.account_circle,
-                  size: 30,
-                  color: Theme.of(context).primaryColorLight,
-                ),
-                Column(
+            toolbarHeight: 100,
+            leading: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 15),
+              child: Icon(
+                Icons.account_circle,
+                size: 80,
+                color: Theme.of(context).primaryColorLight,
+              ),
+            ),
+            title: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 30),
+              child: Column(
                   children: <Widget>[
                     Text('Credential line 1'),
                     Text('Credential line 2'),
                     Text('Credential line 3')
                   ],
                 )
-              ],
             ),
             automaticallyImplyLeading: false,
           ),
           ListTile(
-              leading: Icon(Icons.add_alert_outlined),
-              title: Text('Reminders'),
-              onTap: (){
-                Navigator.of(context).pushReplacementNamed('/');
-              }
+            minVerticalPadding: 5,
+            leading: Icon(Icons.add_alert_outlined),
+            title: Text('Reminders'),
+            onTap: (){
+              Navigator.of(context).pushReplacementNamed(ReminderScreen.routeName);
+            }
           ),
           Divider(),
           ListTile(
@@ -83,7 +91,7 @@ class AppDrawer extends StatelessWidget {
                 // Navigator.of(context).pushReplacementNamed(UserProductScreen.routeName);
               }
           ),
-          Divider(),
+          // Divider(),
         ],
       ),
     );

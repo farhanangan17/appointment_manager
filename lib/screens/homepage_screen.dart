@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_pro/carousel_pro.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 
 import '../widgets/bottom_bar.dart';
+import '../widgets/app_drawer.dart';
 import '../screens/find_doctor_screen.dart';
 import '../screens/od_services_screen.dart';
 
@@ -93,6 +93,8 @@ class HomepageScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
     return Scaffold(
+      // appBar: App,
+      // drawer: AppDrawer(),
       // backgroundColor: Theme.of(context).backgroundColor,
       body: Stack(
         children:<Widget>[
@@ -201,7 +203,11 @@ class HomepageScreen extends StatelessWidget {
 
         ]
       ),
-      bottomNavigationBar: BottomBar(),
+      bottomNavigationBar: BottomAppBar(
+        color: Theme.of(context).primaryColor,
+        child: BottomBar(),
+      ),
+      // bottomNavigationBar: BottomBar(),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Theme.of(context).primaryColorLight,
         child: Icon(Icons.home),

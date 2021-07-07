@@ -37,7 +37,6 @@ class Appointments with ChangeNotifier{
 
   List<Appointment> get items{
     return [..._appointments];
-    notifyListeners();
   }
 
   void addAppointment(Appointment appointment){

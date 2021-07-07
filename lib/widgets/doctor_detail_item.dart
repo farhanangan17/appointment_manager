@@ -1,3 +1,5 @@
+import 'package:flutter_html/flutter_html.dart';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -18,7 +20,7 @@ class _DoctorDetailItemState extends State<DoctorDetailItem> {
   selectButton _sb = selectButton.info;
 
 
-  Container detailContainer(String title, List<String> lstStr){
+  Container detailContainer(String title, String body){
     return Container(
       // height: MediaQuery.of(context).size.height*0.12,
       child: Column(
@@ -31,40 +33,35 @@ class _DoctorDetailItemState extends State<DoctorDetailItem> {
             ),
           ),
           Container(
-            padding: EdgeInsets.only(bottom: 30),
+            padding: EdgeInsets.only(bottom: 20),
             child: Column(
               children:<Widget> [
+                // Row(
+                //   children:<Widget> [
+                //     CircleAvatar(
+                //       radius: 3,
+                //     ),
+                //     Padding(
+                //         padding: EdgeInsets.only(left: 6),
+                //         child: Text(
+                //           '${body}',
+                //         )
+                //     )
+                //   ]
+                // ),
                 Row(
                   children:<Widget> [
-                    CircleAvatar(
-                      radius: 3,
-                    ),
-                    Padding(
+                    // CircleAvatar(
+                    //   radius: 3,
+                    // ),
+                    Container(
+                      width: MediaQuery.of(context).size.width *0.78,
                         padding: EdgeInsets.only(left: 6),
-                        child: Text(
-                          '${lstStr[0]}',
-                          style: TextStyle(
-                            // fontSize:
-                          ),
-                        )
+                        child: Html(
+                          data: '${body}',
+                        ),
                     )
                   ]
-                ),
-                Row(
-                    children:<Widget> [
-                      CircleAvatar(
-                        radius: 3,
-                      ),
-                      Padding(
-                          padding: EdgeInsets.only(left: 6),
-                          child: Text(
-                            '${lstStr[1]}',
-                            style: TextStyle(
-                              // fontSize:
-                            ),
-                          )
-                      )
-                    ]
                 ),
               ]
             ),
@@ -98,9 +95,9 @@ class _DoctorDetailItemState extends State<DoctorDetailItem> {
   Widget build(BuildContext context) {
     final _doctorProfile = Provider.of<DoctorCredential>(context);
     final deviceSize = MediaQuery.of(context).size;
-    final List<String> listStringEdu = _doctorProfile.education;
-    final List<String> listStringSpec = _doctorProfile.specialization;
-    final List<String> listStringSer = _doctorProfile.services;
+    final String stringEdu = _doctorProfile.education;
+    final String stringSpec = _doctorProfile.specialization;
+    final String stringSer = _doctorProfile.services;
 
     return Container(
       // he: deviceSize.height*0.2,
@@ -184,9 +181,9 @@ class _DoctorDetailItemState extends State<DoctorDetailItem> {
               ? SingleChildScrollView(
                  child: Column(
                    children: <Widget>[
-                     detailContainer('Education', listStringEdu),
-                     detailContainer('Specialization', listStringSpec),
-                     detailContainer('Services Offered', listStringSer),
+                     detailContainer('Education', stringEdu),
+                     detailContainer('Specialization', stringSpec),
+                     detailContainer('Services Offered', stringSer),
                    ],
                  ),
                 )

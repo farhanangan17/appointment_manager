@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class Appointment with ChangeNotifier{
-  String id;
-  String date;
-  String time;
-  String docId;
-  String name;
-  String reason;
-  String patientName;
-  bool visited;
+  final String id;
+  final String date;
+  final String time;
+  final String docId;
+  final String name;
+  final String reason;
+  final String patientName;
+  final bool visited;
 
   Appointment({
     @required this.id,

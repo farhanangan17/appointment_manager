@@ -5,8 +5,32 @@ import '../providers/doctor_credentials.dart';
 import '../widgets/medical_record_item.dart';
 import '../widgets/bottom_bar.dart';
 
-class MedicalRecordsScreen extends StatelessWidget {
+class MedicalRecordsScreen extends StatefulWidget {
   static const routeName = '/medical_records_screen';
+
+  @override
+  _MedicalRecordsScreenState createState() => _MedicalRecordsScreenState();
+}
+
+class _MedicalRecordsScreenState extends State<MedicalRecordsScreen> {
+  bool _isInit = true;
+  bool _isLoading = false;
+
+  @override
+  void didChangeDependencies() {
+    if(_isInit) {
+      setState(() {
+        _isLoading = true;
+      });
+      Provider.of<DoctorCredentials>(context).fetchCategories().then((_){
+        setState(() {
+          _isLoading = false;
+        });
+      });
+    }
+    _isInit = false;
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
