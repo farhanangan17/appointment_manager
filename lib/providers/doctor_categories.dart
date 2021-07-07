@@ -51,7 +51,7 @@ class DoctorCategories with ChangeNotifier {
   }
 
   Future<void> fetchCategories() async{
-    final url = Uri.parse('http://192.168.1.102:3333/api/doctor/speciality/web/getall');
+    final url = Uri.parse('http://192.168.1.***:3333/api/doctor/speciality/web/getall');
     final response = await http.get(
       url,
     );
